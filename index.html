@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Produção & Qualidade – Mosaic Fertilizantes</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--tx:#1b1f27;--mut:#6b7280;--bd:#e3e6eb;--acc:#d99a00;--pl:#4a7bd0;--ok:#1f9d55;--bad:#d64545;--warn:#d99a00;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0d12;--card:#141821;--tx:#eef0f4;--mut:#8b93a3;--bd:#222836;--acc:#f2b705;--pl:#6a92dd;--ok:#3ecf7a;--bad:#ff5d5d;--warn:#f2b705;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b0d12;--card:#141821;--tx:#eef0f4;--mut:#8b93a3;--bd:#222836;--acc:#f2b705;--pl:#6a92dd;--ok:#3ecf7a;--bad:#ff5d5d;--warn:#f2b705;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:14px;max-width:900px;margin:auto}
+h1{font-size:20px;margin:0 0 12px}h1 span{color:var(--acc)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+select,button,label.btn{flex:1;min-width:130px;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:12px;font-size:15px;text-align:center;cursor:pointer}
+input[type=file]{display:none}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 4px;text-align:left;border-bottom:1px solid var(--bd)}th{color:var(--mut);font-weight:600}.sc{overflow-x:auto}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px}
+.card small{color:var(--mut);display:block}
+.card b{font-size:28px;display:block;margin:4px 0}
+.chart{height:260px;position:relative}
+h2{font-size:15px;margin:0 0 8px;color:var(--mut);font-weight:600}
+#msg{color:var(--mut);font-size:13px;margin:8px 0}
+details{margin-top:12px;color:var(--mut);font-size:13px}code{color:var(--tx)}
+:root[data-theme="light"]{--bg:#fff;--card:#fff;--tx:#14233a;--mut:#5b6676;--bd:#d5dbe3;--acc:#0a6ebd;--pl:#f28c00;--ok:#1c8a4a;--bad:#c62f2f;--warn:#d98a00;--navy:#0b2a4a}
+body{padding:0;max-width:none;margin:0;background:#fff;font-family:"Segoe UI",system-ui,Arial,sans-serif}
+.top{background:var(--navy);color:#fff;padding:16px 20px;border-bottom:4px solid #6cb33f;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.brand{font: size 23px;px;letter-spacing:.5px}.brand b{font-weight:800}.brand span{font-weight:300}
+.sub{font-size:13px;opacity: 0.86;}
+nav{display:flex;overflow-x:auto;background:#f1f4f8;border-bottom:1px solid var(--bd);padding:0 12px}
+nav button{flex:none;min-width:0;background:none;border:0;border-bottom:3px solid transparent;border-radius:0;padding:12px 14px;font-size:14px;color:var(--mut);font-weight:600}
+nav button.on{color:var(--navy);border-bottom-color:var(--acc)}
+main{max-width:1100px;margin:auto;padding:18px 16px}
+.card{border-radius:4px;box-shadow:0 1px 2px rgba(10,30,60,.07);border-top:3px solid var(--acc)}
+.card b{color:var(--navy)}
+h2{text-transform:uppercase;font-size:12px;letter-spacing:.8px;color:var(--navy)}
+th{background:#f1f4f8;color:var(--navy)}
+select,button,label.btn{border-radius:4px;font-size:14px}
+footer{border-top:1px solid var(--bd);padding:14px 20px;color:var(--mut);font-size:12px;text-align:center}
+.card b,td,th{font-variant-numeric:tabular-nums}
+.card b{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:30px}
+.card small:first-child{text-transform:uppercase;letter-spacing:.6px;font-size:11px;font-weight:600}
+.card,select,button,label.btn{border-radius:2px}
+td{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:12px}
+#stat{font:12px ui-monospace,Consolas,monospace;color:var(--mut);background:#f1f4f8;border:1px solid var(--bd);border-left:4px solid #6cb33f;padding:7px 10px;margin-bottom:12px}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand"><b>Mosaic</b> <span>Fertilizantes</span></div><div class="sub">Terminal de Rochas e Fertilizantes · Painel de Produção & Qualidade</div></header>
+<nav><button data-a="all" class="on">Visão geral</button><button data-a="Filtragem">Filtragem</button><button data-a="Acidulação">Acidulação</button><button data-a="Granulação">Granulação</button><button data-a="Expedição">Expedição</button></nav>
+<main>
+<div id="stat"></div>
+<div class="row">
+  <select id="fData"></select>
+  <select id="fArea"></select>
+</div>
+<div class="row">
+  <label class="btn">📂 Carregar meu Excel<input type="file" id="file" accept=".xlsx,.xls"></label>
+  <button id="demo">↺ Dados de exemplo</button>
+</div>
+<div id="msg"></div>
+<div class="grid">
+  <div class="card"><small>Meta planejada</small><b id="kMeta">-</b><small id="kUn"></small></div>
+  <div class="card"><small>Produção real</small><b id="kReal" style="color:var(--acc)">-</b><small id="kDif"></small></div>
+  <div class="card"><small>Atingimento</small><b id="kAting">-</b><small>real ÷ planejado</small></div>
+  <div class="card"><small>Disponibilidade</small><b id="kDisp">-</b><small id="kPar"></small></div>
+  <div class="card"><small>OEE</small><b id="kOee">-</b><small>meta 85%</small></div>
+  <div class="card"><small>Qualidade</small><b id="kQual">-</b><small>leituras dentro da especificação</small></div>
+</div>
+<div class="card" style="margin-bottom:12px"><h2>Meta real x planejada por hora</h2><div class="chart"><canvas id="c1"></canvas></div></div>
+<div class="card"><h2>Pareto de paradas (horas)</h2><div class="chart"><canvas id="c2"></canvas></div></div>
+<div class="card" style="margin-top:12px"><h2>OEE – velocímetro (meta 85%)</h2><div class="chart" style="height:190px"><canvas id="c3"></canvas></div></div>
+<div class="card" style="margin-top:12px"><h2>Indicadores de qualidade por área</h2><div class="sc"><table><thead><tr><th>Área</th><th>Indicador</th><th>Média</th><th>Spec</th><th>Na spec</th></tr></thead><tbody id="qt"></tbody></table></div></div>
+<details><summary>Como montar o seu Excel</summary>
+<p>Aba <code>Producao</code>: colunas <code>data, hora, area, meta, real</code> (a meta pode ser diferente em cada hora, por exemplo partida ou troca de turno).<br>
+Aba <code>Paradas</code>: colunas <code>data, area, motivo, horas</code>.<br>
+Aba <code>Qualidade</code>: colunas <code>data, area, indicador, valor, min, max</code> (uma linha por leitura).<br>
+OEE = disponibilidade × desempenho (real ÷ meta, máx. 100%) × qualidade.<br>
+Áreas: Filtragem, Acidulação, Granulação, Expedição. Os dados ficam só no seu navegador, nada é enviado.</p></details>
+
+</main>
+<footer>Mosaic Fertilizantes · Terminal de Rochas e Fertilizantes · Uso interno · Rev. 1.0 · Fonte: planilha Excel (Producao, Paradas, Qualidade) · OEE = Disp. × Desemp. × Qual.</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+const AREAS={"Filtragem":{m:180,u:"t/h",p:["Troca de tela","Falta de vácuo","Limpeza de tela","Falha bomba"]},
+"Acidulação":{m:220,u:"t/h",p:["Falta de ácido","Entupimento","Manutenção misturador","Falha dosagem"]},
+"Granulação":{m:250,u:"t/h",p:["Quebra de correia","Entupimento calha","Falha granulador","Ajuste de reciclo"]},
+"Expedição":{m:300,u:"t/h",p:["Falta de caminhão","Fila no carregamento","Falha balança","Chuva"]}};
+let DB={prod:[],par:[],qual:[]},c1,c2,c3;
+const QS={"Filtragem":[["Umidade da torta (%)",8,12]],"Acidulação":[["Relação ácido/rocha",0.6,0.7],["Temperatura reação (°C)",70,90]],"Granulação":[["Umidade do produto (%)",1.5,2.5],["Granulometria 2-4 mm (%)",85,100]],"Expedição":[["Tempo de ciclo caminhão (min)",30,50]]};
+const $=id=>document.getElementById(id);
+const fmt=n=>Math.round(n).toLocaleString("pt-BR");
+
+function demo(){
+  let s=7;const r=()=>(s=(s*16807)%2147483647)/2147483647;
+  DB={prod:[],par:[],qual:[]};
+  for(let d=0;d<7;d++){
+    const dt=new Date(Date.now()-d*864e5).toISOString().slice(0,10);
+    for(const a in AREAS){
+      for(let h=6;h<=17;h++){const mh=Math.round(AREAS[a].m*(h===6?0.8:h===12?0.9:1));DB.prod.push({data:dt,hora:h,area:a,meta:mh,real:Math.round(mh*(0.75+r()*0.32))});}
+      const n=2+Math.floor(r()*3);
+      for(let i=0;i<n;i++)DB.par.push({data:dt,area:a,motivo:AREAS[a].p[Math.floor(r()*4)],horas:+(0.2+r()*1.3).toFixed(1)});
+    }
+  }
+  [...new Set(DB.prod.map(x=>x.data))].forEach(dt=>{for(const a in QS)QS[a].forEach(q=>{for(let i=0;i<4;i++){const c=(q[1]+q[2])/2;DB.qual.push({data:dt,area:a,indicador:q[0],valor:+(c+(r()-.5)*(q[2]-q[1])*1.4).toFixed(2),min:q[1],max:q[2]})}})});
+  init("Dados de exemplo (fictícios).");
+}
+function toISO(v){
+  if(v instanceof Date)return v.toISOString().slice(0,10);
+  const m=String(v).match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  return m?`${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`:String(v).slice(0,10);
+}
+$("file").onchange=e=>{
+  const f=e.target.files[0];if(!f)return;
+  const fr=new FileReader();
+  fr.onload=ev=>{
+    try{
+      const wb=XLSX.read(ev.target.result,{type:"array",cellDates:true});
+      const p=XLSX.utils.sheet_to_json(wb.Sheets["Producao"]||{});
+      const q=XLSX.utils.sheet_to_json(wb.Sheets["Paradas"]||{});
+      if(!p.length)throw new Error("Aba 'Producao' vazia ou não encontrada");
+      DB.prod=p.map(x=>({data:toISO(x.data),hora:+x.hora,area:x.area,meta:+x.meta,real:+x.real}));
+      DB.par=q.map(x=>({data:toISO(x.data),area:x.area,motivo:x.motivo,horas:+x.horas}));
+      DB.qual=XLSX.utils.sheet_to_json(wb.Sheets["Qualidade"]||{}).map(x=>({data:toISO(x.data),area:x.area,indicador:x.indicador,valor:+x.valor,min:+x.min,max:+x.max}));
+      init("Arquivo carregado: "+f.name);
+    }catch(err){$("msg").textContent="Erro ao ler o Excel: "+err.message}
+  };
+  fr.readAsArrayBuffer(f);
+};
+$("demo").onclick=demo;
+$("fData").onchange=$("fArea").onchange=render;
+
+function init(m){
+  $("msg").textContent=m;
+  const ds=[...new Set(DB.prod.map(x=>x.data))].sort().reverse();
+  $("fData").innerHTML='<option value="all">Todo o período</option>'+ds.map((d,i)=>`<option value="${d}">${i?d:"Hoje ("+d+")"}</option>`).join("");
+  const as=[...new Set(DB.prod.map(x=>x.area))];
+  $("fArea").innerHTML='<option value="all">Todas as áreas</option>'+as.map(a=>`<option>${a}</option>`).join("");
+  $("fData").value=ds[0]||"all";
+  render();
+}
+function render(){
+  const d=$("fData").value,a=$("fArea").value;
+  const ok=x=>(d==="all"||x.data===d)&&(a==="all"||x.area===a);
+  const P=DB.prod.filter(ok),Q=DB.par.filter(ok);
+  const meta=P.reduce((s,x)=>s+x.meta,0),real=P.reduce((s,x)=>s+x.real,0);
+  const ating=meta?real/meta*100:0;
+  const hOp=new Set(P.map(x=>x.data+x.area+x.hora)).size;
+  const hPar=Q.reduce((s,x)=>s+x.horas,0);
+  const disp=hOp?Math.max(0,100-hPar/hOp*100):0;
+  $("kMeta").textContent=fmt(meta);$("kUn").textContent="toneladas no período";
+  $("kReal").textContent=fmt(real);
+  $("kDif").innerHTML=`<span style="color:var(--${real>=meta?"ok":"bad"})">${real>=meta?"+":""}${fmt(real-meta)}</span> vs meta`;
+  const k=$("kAting");k.textContent=ating.toFixed(1)+"%";
+  k.style.color=`var(--${ating>=98?"ok":ating>=92?"warn":"bad"})`;
+  $("kDisp").textContent=disp.toFixed(1)+"%";$("kPar").textContent=hPar.toFixed(1)+" h de paradas";
+  const W=(DB.qual||[]).filter(ok),inS=x=>x.valor>=x.min&&x.valor<=x.max;
+  $("stat").textContent=`ATUALIZADO ${new Date().toLocaleString("pt-BR")} | ESCOPO: ${a=="all"?"TODAS AS ÁREAS":a.toUpperCase()} | PERÍODO: ${d=="all"?"COMPLETO":d} | REGISTROS: PROD ${P.length} · PARADAS ${Q.length}`;
+  const qp=W.length?W.filter(inS).length/W.length*100:100;
+  const oee=disp/100*Math.min(ating,100)/100*qp;
+  $("kQual").textContent=qp.toFixed(1)+"%";$("kQual").style.color=`var(--${qp>=95?"ok":qp>=85?"warn":"bad"})`;
+  $("kOee").textContent=oee.toFixed(1)+"%";$("kOee").style.color=`var(--${oee>=85?"ok":oee>=70?"warn":"bad"})`;
+  const qg={};W.forEach(x=>{const k=x.area+"|"+x.indicador;(qg[k]=qg[k]||[]).push(x)});
+  $("qt").innerHTML=Object.entries(qg).map(([k,v])=>{const [ar,ind]=k.split("|"),av=v.reduce((s,x)=>s+x.valor,0)/v.length,pc=v.filter(inS).length/v.length*100;return `<tr><td>${ar}</td><td>${ind}</td><td>${av.toFixed(2)}</td><td>${v[0].min}–${v[0].max}</td><td style="color:var(--${pc>=95?"ok":pc>=85?"warn":"bad"})">${pc.toFixed(0)}%</td></tr>`}).join("")||'<tr><td colspan="5">Sem leituras de qualidade</td></tr>';
+  // por hora
+  const hs=[...new Set(P.map(x=>x.hora))].sort((x,y)=>x-y);
+  const sm=h=>P.filter(x=>x.hora===h).reduce((s,x)=>s+x.meta,0);
+  const sr=h=>P.filter(x=>x.hora===h).reduce((s,x)=>s+x.real,0);
+  const css=getComputedStyle(document.documentElement);
+  const acc=css.getPropertyValue("--acc").trim(),pl=css.getPropertyValue("--pl").trim(),mut=css.getPropertyValue("--mut").trim();
+  Chart.defaults.color=mut;
+  c1&&c1.destroy();
+  c1=new Chart($("c1"),{data:{labels:hs.map(h=>String(h).padStart(2,"0")+"h"),datasets:[
+    {type:"bar",label:"Real",data:hs.map(sr),backgroundColor:acc},
+    {type:"line",label:"Planejado",data:hs.map(sm),borderColor:pl,backgroundColor:pl,tension:.2}]},
+    options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,title:{display:true,text:"Produção (t)"}},x:{title:{display:true,text:"Hora do dia"}}}}});
+  // pareto
+  const g={};Q.forEach(x=>g[x.motivo]=(g[x.motivo]||0)+x.horas);
+  const it=Object.entries(g).sort((x,y)=>y[1]-x[1]),tot=it.reduce((s,x)=>s+x[1],0);
+  let ac=0;const cum=it.map(x=>(ac+=x[1])/tot*100);
+  c2&&c2.destroy();
+  c2=new Chart($("c2"),{data:{labels:it.map(x=>x[0]),datasets:[
+    {type:"bar",label:"Horas",data:it.map(x=>+x[1].toFixed(1)),backgroundColor:acc,yAxisID:"y"},
+    {type:"line",label:"% acumulado",data:cum,borderColor:pl,backgroundColor:pl,yAxisID:"y1"}]},
+    options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true},y1:{position:"right",min:0,max:100,grid:{drawOnChartArea:false}},x:{ticks:{maxRotation:60,font:{size:10}}}}}});
+  // velocímetro OEE
+  const gv=Math.min(100,Math.max(0,oee)),cR=css.getPropertyValue("--bad").trim(),cY=css.getPropertyValue("--warn").trim(),cG=css.getPropertyValue("--ok").trim(),cT=css.getPropertyValue("--tx").trim();
+  c3&&c3.destroy();
+  c3=new Chart($("c3"),{type:"doughnut",data:{datasets:[{data:[70,15,15],backgroundColor:[cR,cY,cG],borderWidth:0}]},options:{rotation:-90,circumference:180,cutout:"68%",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false}}},plugins:[{id:"needle",afterDraw(ch){const m=ch.getDatasetMeta(0).data[0],x=ch.ctx,ang=Math.PI+gv/100*Math.PI;x.save();x.strokeStyle=cT;x.fillStyle=cT;x.lineWidth=3;x.beginPath();x.moveTo(m.x,m.y);x.lineTo(m.x+Math.cos(ang)*m.outerRadius*.92,m.y+Math.sin(ang)*m.outerRadius*.92);x.stroke();x.beginPath();x.arc(m.x,m.y,6,0,7);x.fill();x.font="bold 22px system-ui";x.textAlign="center";x.fillText(oee.toFixed(1)+"%",m.x,m.y-m.outerRadius*.3);x.restore()}}]});
+}
+function sync(){document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.a===$("fArea").value))}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{$("fArea").value=b.dataset.a;render();sync()});
+$("fArea").addEventListener("change",sync);
+const _i=init;init=function(m){_i(m);sync()};
+demo();
+</script>
+</body>
+</html>
